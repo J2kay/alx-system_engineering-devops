@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -l | tail -n 10 | sort -n
+ls -lt | grep -v '^d' | head -n 10
