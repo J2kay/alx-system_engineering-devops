@@ -1,3 +1,3 @@
 #!/usr/bin/env ruby
-# a Ruby script that accepts one argument and pass it to a regular expression
-puts ARGV[0].scan(/hbt{2,5}n/).join
+# a regular expression that matches School
+puts ARGV[0].scan(/Scho{2}1/).join
