@@ -3,20 +3,5 @@
 apt-get update
 apt-get -y install nginx
 ufw allow 'Nginx HTTP'
-sleep 2
-echo "server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-
-    root /var/www/html;
-    index index.html;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-
-    location = / {
-        echo 'Hello World!';
-    }
-}" > /etc/nginx/sites-available/default
-sudo service nginx start
+echo "Hello World!" > /var/www/html/index.html
+service nginx start
