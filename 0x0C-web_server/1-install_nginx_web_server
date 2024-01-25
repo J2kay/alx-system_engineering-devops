@@ -1,7 +1,34 @@
 #!/usr/bin/env bash
 # installs and starts nginx server
+
 apt-get update
+
 apt-get -y install nginx
+
 ufw allow 'Nginx HTTP'
+
+# Create the directory for the default server
+mkdir -p /var/www/html
+
+# Create the index.html file
 echo "Hello World!" > /var/www/html/index.html
-service nginx start
+
+# Configure nginx to listen on port 80 and return "Hello World!" for the root path
+echo "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+    index index.html;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+
+    location = / {
+        echo 'Hello World!';
+    }
+}" > /etc/nginx/sites-available/default
+
+service nginx restart
+
