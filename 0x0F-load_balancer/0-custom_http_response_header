@@ -1,0 +1,9 @@
+#!/bin/bash
+# Install Nginx if not already installed
+
+sudo apt-get update
+sudo apt-get install -y nginx
+server_hostname=$(hostname)
+echo "add_header X-Served-By $server_hostname;" | sudo tee -a /etc/nginx/sites-available/default
+sudo service nginx restart
+
