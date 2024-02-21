@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""using this REST API, for a given employee ID,
-returns information about his/her TODO list progress"""
+"""accessing data of a user through rest api"""
 
 import requests
 import sys
@@ -12,20 +11,21 @@ if __name__ == '__main__':
     url = baseUrl + "/" + employeeId
 
     response = requests.get(url)
-    EMPLOYEE_NAME = response.json().get('name').strip()
+    employeeName = response.json().get('name')
 
-    todosUrl = url + "/todos"
-    response = requests.get(todosUrl)
-    all_tasks = response.json()
-    completed = 0
-    completedTasks = []
+    todoUrl = url + "/todos"
+    response = requests.get(todoUrl)
+    tasks = response.json()
+    done = 0
+    done_tasks = []
 
-    for task in all_tasks:
+    for task in tasks:
         if task.get('completed'):
-            completedTasks.append(task)
-            completed += 1
+            done_tasks.append(task)
+            done += 1
 
     print("Employee {} is done with tasks({}/{}):"
-          .format(EMPLOYEE_NAME, completed, len(all_tasks)))
-    for task in completedTasks:
+          .format(employeeName, done, len(tasks)))
+
+    for task in done_tasks:
         print("\t {}".format(task.get('title')))
